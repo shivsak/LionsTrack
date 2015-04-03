@@ -17,6 +17,7 @@
 		F6CEA6A91ACBCB22002D36E9 /* footsteps.png in Resources */ = {isa = PBXBuildFile; fileRef = F6CEA6A61ACBCB22002D36E9 /* footsteps.png */; };
 		F6CEA6AA1ACBCB22002D36E9 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = F6CEA6A71ACBCB22002D36E9 /* fire.png */; };
 		F6CEA6AB1ACBCB22002D36E9 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = F6CEA6A81ACBCB22002D36E9 /* heart.png */; };
+		F6E599001ACE704C00D915B3 /* running.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F6E598FF1ACE704C00D915B3 /* running.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		F6CEA6A61ACBCB22002D36E9 /* footsteps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footsteps.png; sourceTree = "<group>"; };
 		F6CEA6A71ACBCB22002D36E9 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
 		F6CEA6A81ACBCB22002D36E9 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		F6E598FF1ACE704C00D915B3 /* running.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = running.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 		F6CEA6801ACBC324002D36E9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F6E598FF1ACE704C00D915B3 /* running.jpeg */,
 				F6CEA6A61ACBCB22002D36E9 /* footsteps.png */,
 				F6CEA6A71ACBCB22002D36E9 /* fire.png */,
 				F6CEA6A81ACBCB22002D36E9 /* heart.png */,
@@ -208,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6E599001ACE704C00D915B3 /* running.jpeg in Resources */,
 				F6CEA68C1ACBC324002D36E9 /* Main.storyboard in Resources */,
 				F6CEA6AA1ACBCB22002D36E9 /* fire.png in Resources */,
 				F6CEA6911ACBC324002D36E9 /* LaunchScreen.xib in Resources */,
@@ -424,6 +428,7 @@
 				F6CEA6A21ACBC324002D36E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6CEA6A31ACBC324002D36E9 /* Build configuration list for PBXNativeTarget "HealthProjectTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +437,7 @@
 				F6CEA6A51ACBC324002D36E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
