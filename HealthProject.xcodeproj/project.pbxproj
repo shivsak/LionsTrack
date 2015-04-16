@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F65235E91ADA95BB00DAFB29 /* age-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F65235E61ADA95BB00DAFB29 /* age-icon-white.png */; };
+		F65235EA1ADA95BB00DAFB29 /* weight-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F65235E71ADA95BB00DAFB29 /* weight-icon-white.png */; };
+		F65235EB1ADA95BB00DAFB29 /* ruler-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F65235E81ADA95BB00DAFB29 /* ruler-icon-white.png */; };
 		F6CEA6831ACBC324002D36E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CEA6821ACBC324002D36E9 /* main.m */; };
 		F6CEA6861ACBC324002D36E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CEA6851ACBC324002D36E9 /* AppDelegate.m */; };
 		F6CEA6891ACBC324002D36E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CEA6881ACBC324002D36E9 /* ViewController.m */; };
@@ -31,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F65235E61ADA95BB00DAFB29 /* age-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "age-icon-white.png"; sourceTree = "<group>"; };
+		F65235E71ADA95BB00DAFB29 /* weight-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weight-icon-white.png"; sourceTree = "<group>"; };
+		F65235E81ADA95BB00DAFB29 /* ruler-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ruler-icon-white.png"; sourceTree = "<group>"; };
 		F6CEA67D1ACBC324002D36E9 /* HealthProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6CEA6811ACBC324002D36E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6CEA6821ACBC324002D36E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -104,6 +110,9 @@
 		F6CEA6801ACBC324002D36E9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F65235E61ADA95BB00DAFB29 /* age-icon-white.png */,
+				F65235E71ADA95BB00DAFB29 /* weight-icon-white.png */,
+				F65235E81ADA95BB00DAFB29 /* ruler-icon-white.png */,
 				F6E598FF1ACE704C00D915B3 /* running.jpeg */,
 				F6CEA6A61ACBCB22002D36E9 /* footsteps.png */,
 				F6CEA6A71ACBCB22002D36E9 /* fire.png */,
@@ -217,6 +226,9 @@
 				F6CEA6911ACBC324002D36E9 /* LaunchScreen.xib in Resources */,
 				F6CEA68E1ACBC324002D36E9 /* Images.xcassets in Resources */,
 				F6CEA6AB1ACBCB22002D36E9 /* heart.png in Resources */,
+				F65235EA1ADA95BB00DAFB29 /* weight-icon-white.png in Resources */,
+				F65235EB1ADA95BB00DAFB29 /* ruler-icon-white.png in Resources */,
+				F65235E91ADA95BB00DAFB29 /* age-icon-white.png in Resources */,
 				F6CEA6A91ACBCB22002D36E9 /* footsteps.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

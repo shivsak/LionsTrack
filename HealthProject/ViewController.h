@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
+    IBOutlet UIPickerView *agePickerView;
+    IBOutlet UIPickerView *heightPickerView;
+    IBOutlet UIPickerView *weightPickerView;
+}
 
+@property (strong, nonatomic) NSMutableArray *agePickerArray;
+@property (strong, nonatomic) NSMutableArray *heightPickerArray;
+@property (strong, nonatomic) NSMutableArray *weightPickerArray;
 
 @end
 
