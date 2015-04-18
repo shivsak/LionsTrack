@@ -1,8 +1,12 @@
 from flask import Flask, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
 
+from flask.ext.heroku import Heroku
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/lions_tracks'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/lions_tracks'
+#db = SQLAlchemy(app)
+heroku = Heroku(app)
 db = SQLAlchemy(app)
 
 # Create our database model
@@ -27,13 +31,13 @@ class User(db.Model):
         self.sleep = sleep
         self.health = health
 
-    def __repr__(self):
-        return '<E-mail %r>' % self.email
+   # def __repr__(self):
+   #     return '<E-mail %r>' % self.email
 
 # Set "homepage" to index.html
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 # Save e-mail to database and send to success page
 @app.route('/upload', methods=['POST'])
@@ -55,7 +59,7 @@ def upload():
         db.session.add(reg)
         db.session.commit()
             #return render_template('success.html')
-    #return render_template('index.html')
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.debug = True
