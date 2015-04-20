@@ -15,6 +15,7 @@ db = SQLAlchemy(app)
 
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
+
 # Create our database model
 class User(db.Model):
     __tablename__ = "users"
@@ -43,7 +44,7 @@ class User(db.Model):
 # Set "homepage" to index.html
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return 'Landing Page'
 
 # Save e-mail to database and send to success page
 @app.route('/upload', methods=['POST'])
