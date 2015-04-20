@@ -5,8 +5,7 @@ import logging
 
 from flask.ext.heroku import Heroku
 
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
+
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/lions_tracks'
@@ -14,6 +13,8 @@ app = Flask(__name__)
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 # Create our database model
 class User(db.Model):
     __tablename__ = "users"
