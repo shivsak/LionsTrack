@@ -1,0 +1,13 @@
+PODS:
+  - pop (1.0.7)
+  - SSKeychain (1.2.3)
+
+DEPENDENCIES:
+  - pop (~> 1.0)
+  - SSKeychain
+
+SPEC CHECKSUMS:
+  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
+
+COCOAPODS: 0.35.0

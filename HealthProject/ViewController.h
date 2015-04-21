@@ -12,11 +12,20 @@
     IBOutlet UIPickerView *agePickerView;
     IBOutlet UIPickerView *heightPickerView;
     IBOutlet UIPickerView *weightPickerView;
+    
+    IBOutlet UIView *basicInfoView;
+    IBOutlet UIView *additionalInfoView;
 }
 
-@property (strong, nonatomic) NSMutableArray *agePickerArray;
-@property (strong, nonatomic) NSMutableArray *heightPickerArray;
-@property (strong, nonatomic) NSMutableArray *weightPickerArray;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *genderSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *activityLevelSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sleepSegmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *healthSegmentedControl;
+
+-(IBAction)genderValueChanged:(id)sender;
+-(IBAction)activityLevelValueChanged:(id)sender;
+-(IBAction)sleepValueChanged:(id)sender;
+-(IBAction)healthValueChanged:(id)sender;
 
 @end
 
