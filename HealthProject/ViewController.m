@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import <POP/POP.h>
+#import <HealthKit/HealthKit.h>
+#import <SSKeychain/SSKeychain.h>
 
 @interface ViewController ()
 
@@ -15,10 +17,15 @@
 @property (nonatomic, retain) NSString *activity;
 @property (nonatomic, retain) NSString *sleep;
 @property (nonatomic, retain) NSString *health;
+@property (nonatomic, retain) NSString *deviceID;
+@property (nonatomic, retain) NSString *stepCount;
 
 @end
 
-NSString *ROOT_ADDRESS = @"";    //Database Root Address
+NSString *ROOT_ADDRESS = @"http://lions-tracks.herokuapp.com/";    //Database Root Address
+int age;
+int height;
+int weight;
 
 @implementation ViewController
 
@@ -33,6 +40,138 @@ NSString *ROOT_ADDRESS = @"";    //Database Root Address
     
     [self setDefaults];
     [self showBasicInfo:self];
+    [self routineCheck];
+    
+}
+
+-(void)firstTimeHealthKitCheck {
+    
+    [self performSegueWithIdentifier:@"MainToInitial" sender:self];
+    
+    //If Health Kit is available on the device
+    if(NSClassFromString(@"HKHealthStore") && [HKHealthStore isHealthDataAvailable])
+    {
+        //Ask for Permission
+        
+        HKHealthStore *healthStore = [[HKHealthStore alloc] init];
+        
+        // Share body mass, height and body mass index
+        NSSet *shareObjectTypes = [self shareTypes];
+        
+        // Read date of birth, biological sex and step count
+        NSSet *readObjectTypes  = [self readTypes];
+        
+        // Request access
+        [healthStore requestAuthorizationToShareTypes:shareObjectTypes
+                                            readTypes:readObjectTypes
+                                           completion:^(BOOL success, NSError *error) {
+                                               
+                                               if(success == YES)
+                                               {
+                                                   // ...
+                                               }
+                                               else
+                                               {
+                                                   // Determine if it was an error or if the
+                                                   // user just canceld the authorization request
+                                               }
+                                               
+                                           }];
+        
+    }
+    else {
+        //Alert the user
+        UIAlertView *noHealthKitAlert = [[UIAlertView alloc] initWithTitle:@"Health Data Unavailable" message:@"Sorry! Health data is not available on your device!" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [noHealthKitAlert show];
+        [self performSegueWithIdentifier:@"InitialToUnavailable" sender:self];
+    }
+    
+}
+
+-(NSSet *)shareTypes {
+    // Share body mass, height and body mass index
+    NSSet *shareObjectTypes = [NSSet setWithObjects:
+                               [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass],
+                               [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight],
+                               [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex],
+                               nil];
+    return shareObjectTypes;
+}
+
+-(NSSet *)readTypes {
+    NSSet *readObjectTypes  = [NSSet setWithObjects:
+                               [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth],
+                               [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex],
+                               [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount],
+                               nil];
+    
+    return readObjectTypes;
+}
+
+
+-(void)routineCheck {
+    //If Keychain, then run
+    NSArray *keychainArray = [SSKeychain accountsForService:@"DeviceDetails"];
+    if ([keychainArray count] > 0) {
+        NSString *device = [keychainArray[0] objectForKey:@"acct"];
+        self.deviceID = [SSKeychain passwordForService:@"DeviceDetails" account:device];
+        [self getUserData:self.deviceID];
+        NSLog(@"Device ID (From Keychain) %@", self.deviceID);
+    }
+    //If no keychain, perform First Time Check
+    else {
+        [self firstTimeHealthKitCheck];
+    }
+}
+
+-(void)getUserData:(NSString *)identification {
+    HKHealthStore *healthStore = [[HKHealthStore alloc] init];
+    // Set your start and end date for your query of interest
+    NSDate *endDate = [NSDate date];
+    int daysToAdd = -1;
+    
+    // set up date components
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:daysToAdd];
+    
+    // create a calendar
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
+    NSDate *startDate = [gregorian dateByAddingComponents:components toDate:endDate options:0];
+    NSLog(@"Start Date: %@ \n End Date: %@", startDate, endDate);
+    
+    // Use the sample type for step count
+    HKSampleType *sampleType = [HKSampleType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
+    
+    // Create a predicate to set start/end date bounds of the query
+    NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate];
+    
+    // Create a sort descriptor for sorting by start date
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:HKSampleSortIdentifierStartDate ascending:YES];
+    
+    
+    HKSampleQuery *sampleQuery = [[HKSampleQuery alloc] initWithSampleType:sampleType
+                                                                 predicate:predicate
+                                                                     limit:HKObjectQueryNoLimit
+                                                           sortDescriptors:@[sortDescriptor]
+                                                            resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+                                                                
+                                                                if(!error && results)
+                                                                {
+                                                                    int steps = 0;
+                                                                    for(HKQuantitySample *samples in results) {
+                                                                        HKQuantity *quantity = samples.quantity;
+                                                                        NSString *qtyString = [NSString stringWithFormat:@"%@", quantity];
+                                                                        self.stepCount = [qtyString stringByReplacingOccurrencesOfString:@" count" withString:@""];
+                                                                        steps += [self.stepCount integerValue];
+                                                                    }
+                                                                    NSLog(@"%i Steps", steps);
+                                                                    [self postHealthData:steps forDataType:@"Steps" withUnits:@"count"];
+                                                                    
+                                                                }
+                                                            }];
+    // Execute the query
+    [healthStore executeQuery:sampleQuery];
 }
 
 -(void)setDefaults {
@@ -133,9 +272,26 @@ NSString *ROOT_ADDRESS = @"";    //Database Root Address
     
 }
 
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    //Age Picker
+    if (pickerView.tag == 1) {
+        age = (int) row + 13;
+    }
+    
+    //Height Picker
+    if (pickerView.tag == 2) {
+        height = (int) row + 12;
+    }
+    
+    //Weight Picker
+    if (pickerView.tag == 3) {
+        weight = (int) row + 40;
+    }
+}
+
 
 -(IBAction)genderValueChanged:(id)sender {
-    NSArray *GENDER_VALUES = [[NSArray alloc] initWithObjects:@"Male", @"Female", @"Other", @"Decline", nil];
+    NSArray *GENDER_VALUES = [[NSArray alloc] initWithObjects:@"M", @"F", @"O", @"D", nil];
     _gender = [NSString stringWithFormat:[@"%@", GENDER_VALUES objectAtIndex:genderSegmentedControl.selectedSegmentIndex]];
     self.view.backgroundColor = [UIColor whiteColor];
 }
@@ -148,7 +304,7 @@ NSString *ROOT_ADDRESS = @"";    //Database Root Address
 }
 
 -(IBAction)sleepValueChanged:(id)sender {
-    NSArray *SLEEP_VALUES = [[NSArray alloc] initWithObjects:@"02", @"24", @"46", @"68", @"8+", nil];
+    NSArray *SLEEP_VALUES = [[NSArray alloc] initWithObjects:@"1", @"3", @"5", @"7", @"9", nil];
     _sleep = [NSString stringWithFormat:[@"%@", SLEEP_VALUES objectAtIndex:sleepSegmentedControl.selectedSegmentIndex]];
 }
 
@@ -166,13 +322,38 @@ NSString *ROOT_ADDRESS = @"";    //Database Root Address
     }
     
     else {
-        NSString *post = [NSString stringWithFormat:@"gender=%@&activity=%@&sleep=%@&health=%@", _gender, _activity, _sleep, _health];
+        NSString *post = [NSString stringWithFormat:@"sex=%@&activity=%@&sleep=%@&health=%@&age=%i&height=%i&weight=%i", _gender, _activity, _sleep, _health, age, height, weight];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/signup", ROOT_ADDRESS]];
         NSError *error;
         NSData *data = [self sendPostRequest:post forURL:url];
+        
+        NSString *stringFromData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"String From Data: %@", stringFromData);
+        
+        NSDictionary *signupResponseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        self.deviceID = [NSString stringWithFormat:@"%@", [signupResponseDictionary valueForKey:@"id"]];
+        NSLog(@"Signup Response Device ID: %@", self.deviceID);
+        
+        NSLog(@"Device ID (From Database): %@", self.deviceID);
+        [SSKeychain setPassword:self.deviceID forService:@"DeviceDetails" account:@"deviceID"];
+        //        [SSKeychain setPassword:@"1" forService:@"DeviceDetails" account:@"deviceID"];  //Tester Code
+        
         return TRUE;
     }
 }
+
+-(BOOL)postHealthData:(int)dataValue forDataType:(NSString *)dataType withUnits:(NSString *)dataUnits {
+    NSString *post = [NSString stringWithFormat:@"user_id=%@&data_type=%@&value=%i&unit=%@", self.deviceID, dataType, dataValue, dataUnits];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/update", ROOT_ADDRESS]];
+    NSError *error;
+    NSData *data = [self sendPostRequest:post forURL:url];
+    
+    NSString *stringFromData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"String From Data Update: %@", stringFromData);
+    
+    return TRUE;
+}
+
 
 -(BOOL)isInternetConnection {
     //   Check for Internet Connection
@@ -213,16 +394,16 @@ NSString *ROOT_ADDRESS = @"";    //Database Root Address
         // Setting a timeout
         [request setTimeoutInterval: 20.0];
         
-        NSURLConnection *conn = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-        
-        NSLog(@"%@", post);
-        
-        if(conn) {
-            NSLog(@"Connection Successful – Sign Up");
-            
-        } else {
-            NSLog(@"Connection could not be made – Sign Up");
-        }
+        //        NSURLConnection *conn = [[NSURLConnection alloc]initWithRequest:request delegate:self];
+        //
+        //        NSLog(@"%@", post);
+        //
+        //        if(conn) {
+        //            NSLog(@"Connection Successful – Sign Up");
+        //
+        //        } else {
+        //            NSLog(@"Connection could not be made – Sign Up");
+        //        }
         
         // Fetch the JSON response
         NSData *urlData;
@@ -235,8 +416,6 @@ NSString *ROOT_ADDRESS = @"";    //Database Root Address
                                                     error:&error];
         
         // Construct a String around the Data from the response
-        NSString *resultDataString = [[NSString alloc] initWithData:urlData encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", resultDataString);
         
         return urlData;
     }
@@ -260,8 +439,12 @@ NSString *ROOT_ADDRESS = @"";    //Database Root Address
 
 -(IBAction)submitInfo:(id)sender {
     if ([self postSignUpData]) {
-        [self performSegueWithIdentifier:@"presentMainView" sender:self];
+        [self performSegueWithIdentifier:@"InitialToMain" sender:self];
     }
+}
+
+-(IBAction)getHealthData:(id)sender {
+    
 }
 
 

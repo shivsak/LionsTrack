@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-HealthProject-JBChartView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-HealthProject-SSKeychain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -15,6 +20,11 @@
 			<false/>
 		</dict>
 		<key>Pods-HealthProject.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-HealthProjectTests-JBChartView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,32 +47,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8D3E602D94663BEED542013D</key>
+		<key>1A892A39D6CB5F819EF3D2E6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E22068ED7D68B1AB6CF724B</key>
+		<key>1E329543BC20FE190399C21F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B4CF7858AE2BA1AF9D4D02CD</key>
+		<key>2EE4376AF949F7C42400A553</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8EE552FE3F91B08AC83C285</key>
+		<key>6355172DE5472AEF59AAB2A2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F8E0989F6AC6103AE394D7F8</key>
+		<key>C294DCA7BFDD666A97828FE8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA65AC3570FAD2CD28ECAA43</key>
+		<key>C4864A6768158A1C4C9F11A1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F3F7D4AABEB131EFA80E9E66</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F5DF157D971AC646CA3083F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

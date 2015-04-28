@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <HealthKit/HealthKit.h>
 
 @interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
     IBOutlet UIPickerView *agePickerView;
@@ -21,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *activityLevelSegmentedControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sleepSegmentedControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *healthSegmentedControl;
+
+@property (nonatomic, retain) HKHealthStore *healthStore;
 
 -(IBAction)genderValueChanged:(id)sender;
 -(IBAction)activityLevelValueChanged:(id)sender;

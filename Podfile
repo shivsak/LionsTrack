@@ -4,10 +4,12 @@
 target 'HealthProject' do
 	pod 'pop', '~> 1.0'
 	pod 'SSKeychain'
+	pod 'JBChartView'
 end
 
 target 'HealthProjectTests' do
 	pod 'pop', '~> 1.0'
 	pod 'SSKeychain'
+	pod 'JBChartView'
 end
 
