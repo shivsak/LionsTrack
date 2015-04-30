@@ -14,6 +14,8 @@
 		F65235EA1ADA95BB00DAFB29 /* weight-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F65235E71ADA95BB00DAFB29 /* weight-icon-white.png */; };
 		F65235EB1ADA95BB00DAFB29 /* ruler-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = F65235E81ADA95BB00DAFB29 /* ruler-icon-white.png */; };
 		F6727A071AEE108D00B7E343 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6727A061AEE108D00B7E343 /* HealthKit.framework */; };
+		F67394321AF13695006A9F10 /* columbia_blur.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F67394311AF13695006A9F10 /* columbia_blur.jpg */; };
+		F67394351AF13CC0006A9F10 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F67394341AF13CC0006A9F10 /* CustomCell.m */; };
 		F6CEA6831ACBC324002D36E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CEA6821ACBC324002D36E9 /* main.m */; };
 		F6CEA6861ACBC324002D36E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CEA6851ACBC324002D36E9 /* AppDelegate.m */; };
 		F6CEA6891ACBC324002D36E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CEA6881ACBC324002D36E9 /* ViewController.m */; };
@@ -50,6 +52,9 @@
 		F65235E81ADA95BB00DAFB29 /* ruler-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ruler-icon-white.png"; sourceTree = "<group>"; };
 		F6727A051AEE108C00B7E343 /* HealthProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HealthProject.entitlements; sourceTree = "<group>"; };
 		F6727A061AEE108D00B7E343 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		F67394311AF13695006A9F10 /* columbia_blur.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = columbia_blur.jpg; sourceTree = "<group>"; };
+		F67394331AF13CC0006A9F10 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		F67394341AF13CC0006A9F10 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		F6CEA67D1ACBC324002D36E9 /* HealthProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6CEA6811ACBC324002D36E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6CEA6821ACBC324002D36E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -140,6 +145,8 @@
 				F6CEA6871ACBC324002D36E9 /* ViewController.h */,
 				F6CEA6881ACBC324002D36E9 /* ViewController.m */,
 				F6CEA68A1ACBC324002D36E9 /* Main.storyboard */,
+				F67394331AF13CC0006A9F10 /* CustomCell.h */,
+				F67394341AF13CC0006A9F10 /* CustomCell.m */,
 				F6CEA68D1ACBC324002D36E9 /* Images.xcassets */,
 				F6CEA68F1ACBC324002D36E9 /* LaunchScreen.xib */,
 				F6CEA6801ACBC324002D36E9 /* Supporting Files */,
@@ -150,6 +157,7 @@
 		F6CEA6801ACBC324002D36E9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F67394311AF13695006A9F10 /* columbia_blur.jpg */,
 				F615B8611AEF3CCB00FFB8FD /* columbia.jpg */,
 				F65235E61ADA95BB00DAFB29 /* age-icon-white.png */,
 				F65235E71ADA95BB00DAFB29 /* weight-icon-white.png */,
@@ -275,6 +283,7 @@
 				F6CEA68C1ACBC324002D36E9 /* Main.storyboard in Resources */,
 				F6CEA6AA1ACBCB22002D36E9 /* fire.png in Resources */,
 				F6CEA6911ACBC324002D36E9 /* LaunchScreen.xib in Resources */,
+				F67394321AF13695006A9F10 /* columbia_blur.jpg in Resources */,
 				F615B8621AEF3CCB00FFB8FD /* columbia.jpg in Resources */,
 				F6CEA68E1ACBC324002D36E9 /* Images.xcassets in Resources */,
 				F6CEA6AB1ACBCB22002D36E9 /* heart.png in Resources */,
@@ -364,6 +373,7 @@
 			files = (
 				F6CEA6891ACBC324002D36E9 /* ViewController.m in Sources */,
 				F6CEA6861ACBC324002D36E9 /* AppDelegate.m in Sources */,
+				F67394351AF13CC0006A9F10 /* CustomCell.m in Sources */,
 				F6CEA6831ACBC324002D36E9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

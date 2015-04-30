@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CustomCell.h"
 #import <POP/POP.h>
 #import <HealthKit/HealthKit.h>
 #import <SSKeychain/SSKeychain.h>
@@ -18,7 +19,7 @@
 @property (nonatomic, retain) NSString *sleep;
 @property (nonatomic, retain) NSString *health;
 @property (nonatomic, retain) NSString *deviceID;
-@property (nonatomic, retain) NSString *stepCount;
+@property (nonatomic, retain) NSString *value;
 
 @end
 
@@ -26,6 +27,9 @@ NSString *ROOT_ADDRESS = @"http://lions-tracks.herokuapp.com/";    //Database Ro
 int age;
 int height;
 int weight;
+
+NSMutableArray *healthData;
+NSDictionary *imageDictionary;
 
 @implementation ViewController
 
@@ -108,7 +112,6 @@ int weight;
     return readObjectTypes;
 }
 
-
 -(void)routineCheck {
     //If Keychain, then run
     NSArray *keychainArray = [SSKeychain accountsForService:@"DeviceDetails"];
@@ -122,6 +125,9 @@ int weight;
     else {
         [self firstTimeHealthKitCheck];
     }
+    
+    healthData = [[NSMutableArray alloc] init];
+    imageDictionary = [NSDictionary dictionaryWithObjects:@[@"heart.png", @"footsteps.png", @"fire.png"] forKeys:@[@"heart_rate", @"steps", @"calories"]];
 }
 
 -(void)getUserData:(NSString *)identification {
@@ -139,6 +145,8 @@ int weight;
     
     NSDate *startDate = [gregorian dateByAddingComponents:components toDate:endDate options:0];
     NSLog(@"Start Date: %@ \n End Date: %@", startDate, endDate);
+    
+    /*****Step Count*****/
     
     // Use the sample type for step count
     HKSampleType *sampleType = [HKSampleType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount];
@@ -162,16 +170,53 @@ int weight;
                                                                     for(HKQuantitySample *samples in results) {
                                                                         HKQuantity *quantity = samples.quantity;
                                                                         NSString *qtyString = [NSString stringWithFormat:@"%@", quantity];
-                                                                        self.stepCount = [qtyString stringByReplacingOccurrencesOfString:@" count" withString:@""];
-                                                                        steps += [self.stepCount integerValue];
+                                                                        self.value = [qtyString stringByReplacingOccurrencesOfString:@" count" withString:@""];
+                                                                        steps += [self.value integerValue];
                                                                     }
                                                                     NSLog(@"%i Steps", steps);
-                                                                    [self postHealthData:steps forDataType:@"Steps" withUnits:@"count"];
-                                                                    
+                                                                    [self addDataToArray:self.value forDataType:@"steps" withUnits:@"count"];
+//                                                                  [self postHealthData:steps forDataType:@"steps" withUnits:@"count"];
+                                                                    [self reloadTable];
                                                                 }
                                                             }];
+    
+    
+    /*****Heart Rate*****/
+    
+    // Use the sample type for step count
+    HKSampleType *hrSampleType = [HKSampleType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
+
+    
+    
+    HKSampleQuery *hrSampleQuery = [[HKSampleQuery alloc] initWithSampleType:hrSampleType
+                                                                 predicate:predicate
+                                                                     limit:HKObjectQueryNoLimit
+                                                           sortDescriptors:@[sortDescriptor]
+                                                            resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+                                                                
+                                                                if(!error && results)
+                                                                {
+                                                                    int heartRate = 0;
+                                                                    int timesMeasured = 0;
+                                                                    for(HKQuantitySample *samples in results) {
+                                                                        HKQuantity *quantity = samples.quantity;
+                                                                        NSString *qtyString = [NSString stringWithFormat:@"%@", quantity];
+                                                                        self.value = [qtyString stringByReplacingOccurrencesOfString:@" bpm" withString:@""];
+                                                                        heartRate += [self.value integerValue];
+                                                                        timesMeasured++;
+                                                                    }
+                                                                    NSLog(@"%@ BPM", self.value);
+                                                                    [self addDataToArray:self.value forDataType:@"heart_rate" withUnits:@"bpm"];
+                                                                    //                                                                    [self postHealthData:steps forDataType:@"steps" withUnits:@"count"];
+                                                                    [self reloadTable];
+                                                                }
+                                                            }];
+    
+    
+    
     // Execute the query
     [healthStore executeQuery:sampleQuery];
+    [healthStore executeQuery:hrSampleQuery];
 }
 
 -(void)setDefaults {
@@ -443,9 +488,107 @@ int weight;
     }
 }
 
--(IBAction)getHealthData:(id)sender {
+-(IBAction)getPastHealthData:(id)sender {
     
 }
 
+//Table View Methods
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)myTableView {
+    return 1;
+}
+
+//No of rows in the Table View
+-(NSInteger)tableView:(UITableView *)myTableView numberOfRowsInSection:(NSInteger)section {
+    return [healthData count];
+}
+
+
+-(CGFloat)tableView:(UITableView *)myTableView heightForHeaderInSection:(NSInteger)section {
+    return 0; //Cell Spacing
+}
+
+-(UIView *)tableView:(UITableView *)myTableView viewForHeaderInSection:(NSInteger)section {
+    UIView *v = [UIView new];
+    [v setBackgroundColor:[UIColor clearColor]];
+    return v;
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)myTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    
+    CustomCell *cell;
+    
+    if (cell == nil) {
+        cell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+//    NSLog(@"%@", healthData);
+    if ([healthData count] > 0) {
+//        NSLog(@"HealthData array at load time: %@", healthData);
+        if ([[healthData objectAtIndex:indexPath.row] count] >= 2) {
+            NSString *userDataValue = [[healthData objectAtIndex:indexPath.row] objectAtIndex:1];
+            NSString *userDataType = [NSString stringWithFormat:@"%@", [[healthData objectAtIndex:indexPath.row] objectAtIndex:0]];
+            [cell.userDataValue setText:userDataValue];
+            [cell.userDataType setText:userDataType];
+            [cell.healthDataIcon setImage:[UIImage imageNamed:[imageDictionary valueForKey:userDataType]]];
+        }
+    }
+    
+    UIView *selectionColor = [[UIView alloc] init];
+    selectionColor.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    cell.selectedBackgroundView = selectionColor;
+
+    return cell;
+    
+}
+
+//Allow Deleting
+-(NSArray *)tableView:(UITableView *)myTableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+        UITableViewRowAction *leaveButton = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Leave Waitlist" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+                                             {
+                                                 [self viewDetails:indexPath];
+                                             }];
+        
+        return @[leaveButton];
+}
+
+- (void)tableView:(UITableView *)myTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // you need to implement this method too or nothing will work:
+    
+}
+- (BOOL)tableView:(UITableView *)myTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(void)tableView:(UITableView *)myTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Selected row
+    [myTableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self viewDetails:indexPath];
+}
+
+-(void)viewDetails:(NSIndexPath *)indexPath {
+    
+}
+
+-(void)addDataToArray:(NSString *)dataValue forDataType:(NSString *)dataType withUnits:(NSString *)dataUnits {
+    NSArray *fullDataArray = [NSArray arrayWithObjects:dataType, dataValue, dataUnits, nil];
+    [healthData addObject:fullDataArray];
+    NSLog(@"Added %@ to healthData", fullDataArray);
+}
+
+-(void)sendHealthData {
+    for (NSArray *dataArray in healthData) {
+        [self postHealthData:[[dataArray objectAtIndex:1] intValue] forDataType:[dataArray objectAtIndex:0] withUnits:[dataArray objectAtIndex:2]];
+    }
+}
+
+-(void)reloadTable {
+    [tableView reloadData];
+    NSLog(@"%@", healthData);
+}
 
 @end

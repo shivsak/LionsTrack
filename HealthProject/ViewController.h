@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <HealthKit/HealthKit.h>
 
-@interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
+@interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UIPickerView *agePickerView;
     IBOutlet UIPickerView *heightPickerView;
     IBOutlet UIPickerView *weightPickerView;
     
     IBOutlet UIView *basicInfoView;
     IBOutlet UIView *additionalInfoView;
+    
+    IBOutlet UITableView *tableView;
 }
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderSegmentedControl;
