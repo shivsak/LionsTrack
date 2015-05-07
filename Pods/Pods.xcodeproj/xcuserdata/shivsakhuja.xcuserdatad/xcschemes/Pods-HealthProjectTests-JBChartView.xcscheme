@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C294DCA7BFDD666A97828FE8"
+               BlueprintIdentifier = "AD391F7C41AFF3ACB6D5A2FB"
                BuildableName = "libPods-HealthProjectTests-JBChartView.a"
                BlueprintName = "Pods-HealthProjectTests-JBChartView"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <HealthKit/HealthKit.h>
+#import "JBChartView.h"
+#import "JBBarChartView.h"
+#import "JBLineChartView.h"
 
 @interface ViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate> {
     IBOutlet UIPickerView *agePickerView;
@@ -17,7 +20,28 @@
     IBOutlet UIView *basicInfoView;
     IBOutlet UIView *additionalInfoView;
     
+    IBOutlet UIImageView *blurImage;
+    IBOutlet UIView *headerView;
+    IBOutlet UIImageView *mainImage;
+    
     IBOutlet UITableView *tableView;
+    IBOutlet UIActivityIndicatorView *spinner;
+    IBOutlet UILabel *loading;
+    IBOutlet UIView *loadingView;
+    
+    IBOutlet UILabel *detailDayValue;
+    IBOutlet UILabel *detailDayMoreLessText;
+    IBOutlet UILabel *detailWeekMoreLessText;
+    IBOutlet UILabel *detailDateText;
+    IBOutlet UILabel *detailUserDataValue;
+    IBOutlet UILabel *detailDataType;
+    IBOutlet UILabel *detailCUDataValue;
+    IBOutlet UIImageView *detailDataIcon;
+    
+    IBOutlet UIView *detailView;
+    IBOutlet UIView *mainView;
+    IBOutlet UIView *sideView;
+    IBOutlet UIView *infoView;
 }
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderSegmentedControl;
@@ -31,6 +55,12 @@
 -(IBAction)activityLevelValueChanged:(id)sender;
 -(IBAction)sleepValueChanged:(id)sender;
 -(IBAction)healthValueChanged:(id)sender;
+-(IBAction)backToMainView:(id)sender;
+- (IBAction)showSideView:(id)sender;
+- (IBAction)showInfo:(id)sender;
+- (IBAction)hideSideView:(id)sender;
+- (IBAction)hideInfoView:(id)sender;
+
 
 @end
 
