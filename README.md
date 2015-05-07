@@ -21,8 +21,29 @@ That being said we give the researchers information on statistics regarding the 
 
 <h2>Screenshots</h2>
 <h3>Setting Up</h3>
-<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-1.png" width="250px" />
-<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-2.png" width="250px" />
-<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-3.png" width="250px" />
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-1.png" width="200px" />
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-2.png" width="200px" />
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-3.png" width="200px" />
 <br />
-<h3>App</h3
+<h3>App</h3>
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-4.png" width="300px" />
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-5.png" width="300px" />
+<br />
+<h3>Information</h3>
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-6.png" width="300px" />
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-7.png" width="300px" />
+<br />
+
+<h2>About Us</h2>
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/shiv-circle.png" width="100px" align="left"/>
+<br /> &nbsp; &nbsp; &nbsp; <b>Shiv Sakhuja</b><br />
+&nbsp; &nbsp; &nbsp; Front-End Developer
+<br /><br /><br />
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/josh-circle.png" width="100px" align="left"/>
+<br /> &nbsp; &nbsp; &nbsp; <b>Joshua Zweig</b><br />
+&nbsp; &nbsp; &nbsp; Back-End Developer
+<br /><br /><br />
+
+This app was created by Shiv Sakhuja and Joshua Zweig as part of an app design contest by the Columbia Health and Data Science Institute.<br /><br />
+
+<i>© 2015 Shiv Sakhuja and Joshua Zweig. All Rights Reserved.</i>
