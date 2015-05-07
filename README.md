@@ -2,6 +2,9 @@
 
 <h1>Lion’s Track</h1>
 
+<h2>Demo Video</h2><br />
+[![Demo Video](http://img.youtube.com/vi/Ek0S56PEulc/0.jpg)](http://www.youtube.com/watch?v=Ek0S56PEulc)
+
 <h2>Introduction</h2>
 The ultimate goal of this work is to provide researchers with massive amounts of data to assist in medical research.
 This makes it of paramount importance in this project to provide an interface that is attractive and compels users to signup for and repeatedly use our service.
