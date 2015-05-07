@@ -2,7 +2,7 @@
 
 <h1>Lion’s Track</h1>
 
-<h2>Demo Video</h2><br />
+<b>Demo Video</b><br />
 [![Demo Video](http://img.youtube.com/vi/Ek0S56PEulc/0.jpg)](http://www.youtube.com/watch?v=Ek0S56PEulc)
 
 <h2>Introduction</h2>
