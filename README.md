@@ -31,7 +31,7 @@ That being said we give the researchers information on statistics regarding the 
 <br />
 <h3>Information</h3>
 <img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-6.png" width="300px" />
-<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-7.png" width="300px" />
+<img src="http://columbia.edu/~ss4757/resources/app-screenshots/lions-track-8.png" width="300px" />
 <br />
 
 <h2>About Us</h2>
